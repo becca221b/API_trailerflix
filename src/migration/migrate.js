@@ -1,6 +1,6 @@
 const mongoClient = require('../config/mongo');
 const {sequelize} = require('../config/mysql');
-//const {migrarPeliculas} = require('../services/peliculaService');
+const {migrarPeliculas} = require('./migrarPeliculas');
 
 async function migrate() {
     try {
