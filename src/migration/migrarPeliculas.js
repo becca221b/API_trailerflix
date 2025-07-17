@@ -3,61 +3,69 @@ const {
     Reparto,
     Categoria,
     Genero,
-    PeliculaTag
+    PeliculaTag,
+    Tag,
+    Actor
 } = require('../models');
 
 async function migrarPeliculas(peliculas, transaction) {
     for (const pelicula of peliculas) {
-        const categoria = await Categoria.findorcreate({
-            where: { nombre: pelicula.categoria }
+        // Categoría
+        const [categoria] = await Categoria.findOrCreate({
+            where: { nombre: pelicula.categoria },
+            transaction
         });
-        const genero = await Genero.findorcreate({
-            where: { nombre: pelicula.genero }
+        // Género
+        const [genero] = await Genero.findOrCreate({
+            where: { nombre: pelicula.genero },
+            transaction
         });
+        // Crear película
         const nuevaPelicula = await Pelicula.create({
-            poster: nuevaPelicula.poster,
-            titulo: nuevaPelicula.titulo,
-            categoriaID: nuevaPelicula.categoriaID,
-            generoID: nuevaPelicula.generoID,
-            resumen: nuevaPelicula.resumen,
-            temporadas: nuevaPelicula.temporadas,
-            duracion: nuevaPelicula.duracion,
-            trailer: nuevaPelicula.trailer,
-        },{transaction});
+            poster: pelicula.poster,
+            titulo: pelicula.titulo,
+            categoriaID: categoria.categoriaID,
+            generoID: genero.generoID,
+            resumen: pelicula.resumen,
+            temporadas: pelicula.temporadas,
+            duracion: pelicula.duracion,
+            trailer: pelicula.trailer,
+        }, { transaction });
 
-        if(pelicula.reparto) {
+        // Reparto (actores)
+        if (pelicula.reparto) {
             const actores = pelicula.reparto.split(',').map(actor => actor.trim());
             for (const actorNombre of actores) {
-                if(actor) {
-                    const actor = await Actor.findorcreate({
-                        where: { nombre: actorNombre }
+                if (actorNombre) {
+                    const [actor] = await Actor.findOrCreate({
+                        where: { nombreCompleto: actorNombre },
+                        transaction
                     });
                     await Reparto.create({
-                        peliculaID: pelicula.peliculaID,
+                        peliculaID: nuevaPelicula.peliculaID,
                         actorID: actor.actorID
-                    },{transaction});
+                    }, { transaction });
                 }
             }
         }
 
-        if(pelicula.tags) {
+        // Tags
+        if (pelicula.tags) {
             const tags = pelicula.tags.split(',').map(tag => tag.trim());
-            for (const tag of tags) {
-                if(tag) {
-                    const tag = await Tag.findorcreate({
-                        where: { nombre: tag }
+            for (const tagNombre of tags) {
+                if (tagNombre) {
+                    const [tag] = await Tag.findOrCreate({
+                        where: { tag: tagNombre },
+                        transaction
                     });
                     await PeliculaTag.create({
-                        peliculaID: pelicula.peliculaID,
+                        peliculaID: nuevaPelicula.peliculaID,
                         tagID: tag.tagID
-                    },{transaction});
+                    }, { transaction });
                 }
             }
         }
     }
-
-
 }
 
-
-module.exports = migrarPeliculas;
+module.exports = { migrarPeliculas };

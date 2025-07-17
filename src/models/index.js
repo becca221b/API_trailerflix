@@ -5,6 +5,7 @@ const Pelicula = require('./Pelicula');
 const Tag = require('./Tag');
 const Reparto = require('./Reparto');
 const PeliculaTag = require('./PeliculaTag');
+const Actor = require('./Actor');
 
 // Relaciones
 Pelicula.belongsTo(Categoria, { foreignKey: 'categoriaID' });
