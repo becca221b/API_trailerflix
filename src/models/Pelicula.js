@@ -1,3 +1,6 @@
+const sequelize = require('../config/mysql');
+const { DataTypes } = require('sequelize');
+
 const Pelicula = sequelize.define('pelicula', {
     peliculaID:{
         type: DataTypes.INTEGER,
@@ -30,7 +33,7 @@ const Pelicula = sequelize.define('pelicula', {
     },
     resumen:{
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
     },
     temporadas:{
         type: DataTypes.INTEGER,

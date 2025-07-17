@@ -4,4 +4,6 @@ dotenv.config();
 const { MongoClient } = require('mongodb');
 
 const URI = process.env.MONGODB_URLSTRING;
-const client = new MongoClient(URI);
+const mongoClient = new MongoClient(URI);
+
+module.exports = mongoClient;

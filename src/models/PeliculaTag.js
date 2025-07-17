@@ -1,3 +1,6 @@
+const sequelize = require('../config/mysql');
+const { DataTypes } = require('sequelize');
+
 const PeliculaTag = sequelize.define('peliculaTag', {
     peliculaID:{
         type: DataTypes.INTEGER,
@@ -16,7 +19,7 @@ const PeliculaTag = sequelize.define('peliculaTag', {
         }
     }
 },{
-    tableName: 'peliculaTag',
+    tableName: 'peliculatag',
     timestamps: false
 });
 module.exports = PeliculaTag;

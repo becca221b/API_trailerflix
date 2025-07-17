@@ -1,3 +1,6 @@
+const sequelize = require('../config/mysql');
+const { DataTypes } = require('sequelize');
+
 const Tag = sequelize.define('tag', {
     tagID:{
         type: DataTypes.INTEGER,

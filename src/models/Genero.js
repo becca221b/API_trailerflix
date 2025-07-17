@@ -1,3 +1,6 @@
+const sequelize = require('../config/mysql');
+const { DataTypes } = require('sequelize');
+
 const Genero = sequelize.define('genero', {
     generoID:{
         type: DataTypes.INTEGER,

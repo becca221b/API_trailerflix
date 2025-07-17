@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate": "node src/migration/migrarPeliculas.js"
+    "migrate": "node src/migration/migrate.js"
   },
   "keywords": [],
   "author": "",
