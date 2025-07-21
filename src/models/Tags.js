@@ -1,19 +1,19 @@
 const sequelize = require('../config/mysql');
 const { DataTypes } = require('sequelize');
 
-const Tag = sequelize.define('tag', {
-    tagID:{
+const Tags = sequelize.define('tags', {
+    idTag:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    tag:{
+    nombre:{
         type: DataTypes.STRING,
         allowNull: false,
     }
 },{
-    tableName: 'tag',
+    tableName: 'tags',
     timestamps: false
 });
 
-module.exports = Tag;
+module.exports = Tags;

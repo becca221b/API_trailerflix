@@ -2,20 +2,20 @@ const sequelize = require('../config/mysql');
 const { DataTypes } = require('sequelize');
 
 const Reparto = sequelize.define('reparto', {
-    peliculaID:{
+    idCatalogo:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         references: {
-            model: 'Pelicula',
-            key: 'peliculaID'
+            model: 'catalogo',
+            key: 'id'
         }
     },
-    actorID:{
+    idActores:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         references: {
-            model: 'Actor',
-            key: 'actorID'
+            model: 'Actores',
+            key: 'id'
         }
     }
 },{

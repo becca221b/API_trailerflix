@@ -1,31 +1,31 @@
 const {
-    Pelicula,
+    catalogo,
     Reparto,
     Categoria,
     Genero,
-    PeliculaTag,
-    Tag,
-    Actor
+    Tagscatalogo,
+    Tags,
+    Actores
 } = require('../models');
 
 async function migrarPeliculas(peliculas, transaction) {
     for (const pelicula of peliculas) {
         // Categoría
         const [categoria] = await Categoria.findOrCreate({
-            where: { nombre: pelicula.categoria },
+            where: { nombreCategoria: pelicula.categoria },
             transaction
         });
         // Género
         const [genero] = await Genero.findOrCreate({
-            where: { nombre: pelicula.genero },
+            where: { Nombre: pelicula.genero },
             transaction
         });
         // Crear película
-        const nuevaPelicula = await Pelicula.create({
+        const nuevoCatalogo = await catalogo.create({
             poster: pelicula.poster,
             titulo: pelicula.titulo,
-            categoriaID: categoria.categoriaID,
-            generoID: genero.generoID,
+            idCategoria: categoria.idCategoria,
+            idGenero: genero.idGenero,
             resumen: pelicula.resumen,
             temporadas: pelicula.temporadas,
             duracion: pelicula.duracion,
@@ -37,13 +37,13 @@ async function migrarPeliculas(peliculas, transaction) {
             const actores = pelicula.reparto.split(',').map(actor => actor.trim());
             for (const actorNombre of actores) {
                 if (actorNombre) {
-                    const [actor] = await Actor.findOrCreate({
+                    const [actor] = await Actores.findOrCreate({
                         where: { nombreCompleto: actorNombre },
                         transaction
                     });
                     await Reparto.create({
-                        peliculaID: nuevaPelicula.peliculaID,
-                        actorID: actor.actorID
+                        idCatalogo: nuevoCatalogo.id,
+                        idActores: actor.id
                     }, { transaction });
                 }
             }
@@ -54,13 +54,13 @@ async function migrarPeliculas(peliculas, transaction) {
             const tags = pelicula.tags.split(',').map(tag => tag.trim());
             for (const tagNombre of tags) {
                 if (tagNombre) {
-                    const [tag] = await Tag.findOrCreate({
-                        where: { tag: tagNombre },
+                    const [tag] = await Tags.findOrCreate({
+                        where: { nombre: tagNombre },
                         transaction
                     });
-                    await PeliculaTag.create({
-                        peliculaID: nuevaPelicula.peliculaID,
-                        tagID: tag.tagID
+                    await Tagscatalogo.create({
+                        idCatalogo: nuevoCatalogo.id,
+                        idTags: tag.idTag
                     }, { transaction });
                 }
             }

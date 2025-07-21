@@ -1,19 +1,19 @@
 const sequelize = require('../config/mysql');
 const { DataTypes } = require('sequelize');
 
-const Categoria = sequelize.define('categoria', {
-    categoriaID:{
+const generos = sequelize.define('genero', {
+    idGenero:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
-    nombre:{
+    Nombre:{
         type: DataTypes.STRING,
         allowNull: false,
     }
 },{
-    tableName: 'categoria',
+    tableName: 'generos',
     timestamps: false
 });
 
-module.exports = Categoria;
+module.exports = generos;

@@ -1,25 +1,25 @@
 const sequelize = require('../config/mysql');
 const { DataTypes } = require('sequelize');
 
-const PeliculaTag = sequelize.define('peliculaTag', {
-    peliculaID:{
+const Tagscatalogo = sequelize.define('tagscatalogo', {
+    idCatalogo:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         references: {
-            model: 'Pelicula',
-            key: 'peliculaID'
+            model: 'catalogo',
+            key: 'id'
         }
     },
-    tagID:{
+    idTags:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         references: {
-            model: 'Tag',
-            key: 'tagID'
+            model: 'tags',
+            key: 'idTag'
         }
     }
 },{
-    tableName: 'peliculatag',
+    tableName: 'tagscatalogo',
     timestamps: false
 });
-module.exports = PeliculaTag;
+module.exports = Tagscatalogo; 

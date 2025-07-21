@@ -15,14 +15,14 @@ async function migrate() {
 
         console.log('Obteniendo datos de MongoDB...');
         const db = mongoClient.db();
-        const peliculas = await db.collection('trailerflix').find({}).toArray();
-        console.log(`Se encontraron ${peliculas.length} películas para migrar`);
+        const catalogo = await db.collection('trailerflix').find({}).toArray();
+        console.log(`Se encontraron ${catalogo.length} catálogos para migrar`);
 
         console.log('Iniciando transacción...');
         const transaction = await sequelize.transaction();
         try {
             console.log('Ejecutando migración de películas...');
-            await migrarPeliculas(peliculas, transaction);
+            await migrarPeliculas(catalogo, transaction);
             await transaction.commit();
             console.log('Migración completada correctamente');
         } catch (error) {

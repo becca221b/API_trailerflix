@@ -1,8 +1,8 @@
 const sequelize = require('../config/mysql');
 const { DataTypes } = require('sequelize');
 
-const Pelicula = sequelize.define('pelicula', {
-    peliculaID:{
+const Catalogo = sequelize.define('catalogo', {
+    id:{
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
@@ -15,20 +15,20 @@ const Pelicula = sequelize.define('pelicula', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    categoriaID:{
+    idCategoria:{
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Categoria',
-            key: 'categoriaID'
+            model: 'categorias',
+            key: 'idCategoria'
         }
     },
-    generoID:{
+    idGenero:{
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'Genero',
-            key: 'generoID'
+            model: 'Generos',
+            key: 'idGenero'
         }
     },
     resumen:{
@@ -48,8 +48,8 @@ const Pelicula = sequelize.define('pelicula', {
         allowNull: true,
     }
 },{
-    tableName: 'pelicula',
+    tableName: 'catalogo',
     timestamps: false
 });
 
-module.exports = Pelicula;
+module.exports = Catalogo;
