@@ -1,55 +1,44 @@
-const sequelize = require('../config/mysql');
 const { DataTypes } = require('sequelize');
+const sequelize = require('../config/mysql');
 
-const Catalogo = sequelize.define('catalogo', {
-    id:{
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-    },
-    poster:{
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    titulo:{
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    idCategoria:{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'categorias',
-            key: 'idCategoria'
-        }
-    },
-    idGenero:{
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        references: {
-            model: 'Generos',
-            key: 'idGenero'
-        }
-    },
-    resumen:{
-        type: DataTypes.TEXT,
-        allowNull: true,
-    },
-    temporadas:{
-        type: DataTypes.INTEGER,
-        allowNull: true,
-    },
-    duracion:{
-        type: DataTypes.TIME,
-        allowNull: true
-    },
-    trailer:{
-        type: DataTypes.STRING,
-        allowNull: true,
-    }
-},{
-    tableName: 'catalogo',
-    timestamps: false
+const Catalogo = sequelize.define('Catalogo', {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false,
+  },
+  titulo: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
+  poster: {
+    type: DataTypes.STRING(255),
+  },
+  idCategoria: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  idGenero: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  resumen: {
+    type: DataTypes.STRING(250),
+    allowNull: false,
+  },
+  temporadas: {
+    type: DataTypes.STRING(50),
+  },
+  duracion: {
+    type: DataTypes.STRING(50),
+  },
+  trailer: {
+    type: DataTypes.STRING(200),
+  },
+}, {
+  tableName: 'catalogo',
+  timestamps: false,
 });
 
 module.exports = Catalogo;

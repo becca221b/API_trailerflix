@@ -1,18 +1,17 @@
 const sequelize = require('../config/mysql');
-const Categoria = require('./Categorias');
-const Genero = require('./Generos');
-const catalogo = require('./Catalogo');
+const Categoria = require('./categoria');
+const Genero = require('./genero');
+const catalogo = require('./catalogo');
 const Tagscatalogo = require('./Tagscatalogo');
-const Tags = require('./Tags');
-const Reparto = require('./Reparto');
-
-const Actores = require('./Actores');
+const Tags = require('./tag');
+const Reparto = require('./reparto');
+const Actor = require('./actor');
 
 // Relaciones
 catalogo.belongsTo(Categoria, { foreignKey: 'idCategoria' });
 catalogo.belongsTo(Genero, { foreignKey: 'idGenero' });
-catalogo.belongsToMany(Actores, { through: Reparto, foreignKey: 'idCatalogo' });
-Actores.belongsToMany(catalogo, { through: Reparto, foreignKey: 'idActores' });
+catalogo.belongsToMany(Actor, { through: Reparto, foreignKey: 'idCatalogo' });
+Actor.belongsToMany(catalogo, { through: Reparto, foreignKey: 'idActores' });
 catalogo.belongsToMany(Tags, { through: Tagscatalogo, foreignKey: 'idCatalogo' });
 Tags.belongsToMany(catalogo, { through: Tagscatalogo, foreignKey: 'idTags' });
 
@@ -25,5 +24,5 @@ module.exports = {
     Tags,
     Reparto,
     Tagscatalogo,
-    Actores
+    Actor
 };
