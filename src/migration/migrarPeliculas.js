@@ -5,7 +5,7 @@ const {
     Genero,
     Tagscatalogo,
     Tags,
-    Actores
+    Actor
 } = require('../models');
 
 async function migrarPeliculas(peliculas, transaction) {
@@ -37,7 +37,7 @@ async function migrarPeliculas(peliculas, transaction) {
             const actores = pelicula.reparto.split(',').map(actor => actor.trim());
             for (const actorNombre of actores) {
                 if (actorNombre) {
-                    const [actor] = await Actores.findOrCreate({
+                    const [actor] = await Actor.findOrCreate({
                         where: { nombreCompleto: actorNombre },
                         transaction
                     });

@@ -25,7 +25,7 @@ const Catalogo = sequelize.define('Catalogo', {
   },
   resumen: {
     type: DataTypes.STRING(250),
-    allowNull: false,
+    
   },
   temporadas: {
     type: DataTypes.STRING(50),
