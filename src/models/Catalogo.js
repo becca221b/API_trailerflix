@@ -36,6 +36,10 @@ const Catalogo = sequelize.define('Catalogo', {
   trailer: {
     type: DataTypes.STRING(200),
   },
+  fecha_lanzamiento: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  }
 }, {
   tableName: 'catalogo',
   timestamps: false,
